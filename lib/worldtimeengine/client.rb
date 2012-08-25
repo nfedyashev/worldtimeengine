@@ -19,9 +19,16 @@ module WorldTimeEngine
       request(:get, path, params, options)
     end
 
+    # Fetch information from WorldTimeEngine about IP address
+    #
+    # @param IP address [String] 
+    # @raise [WorldTimeEngine::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+    # @return [Hashi::Mash] IP info
     def api(ip)
       endpoint = WorldTimeEngine.instance_variable_get(:@endpoint)
       api_key = WorldTimeEngine.instance_variable_get(:@api_key)
+
+      raise ArgumentError.new(":api_key wasn't set in configuration block") if api_key.nil?
 
       timezone_hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml).to_hash['timezone']
       timezone_hash.delete('xmlns:xsi')
