@@ -1,0 +1,22 @@
+  curl  http://worldtimeengine.com/api/ip/83c2bd05ec9bb21904cd8195ff93db/212.154.168.243
+<?xml version="1.0" encoding="UTF-8" ?>
+<timezone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://worldtimeengine.com/timezone.xsd">
+    <version>1.1</version>
+    <location>
+        <region>Kazakhstan</region>
+        <latitude>51.1811</latitude>
+        <longitude>71.4278</longitude>
+    </location>
+    <time>
+        <utc>2012-08-25 18:14:04</utc>
+        <local>2012-08-26 00:14:04</local>
+        <zone>
+            <hasDST>false</hasDST>
+            <current>
+                <abbreviation>ALMT</abbreviation>
+                <description>Alma-Ata Mean Time</description>
+                <utcoffset>+6:00</utcoffset>
+            </current>
+        </zone>
+    </time>
+</timezone>

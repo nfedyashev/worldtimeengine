@@ -12,13 +12,52 @@ describe WorldTimeEngine do
       end
 
       stub_request(:get, "http://worldtimeengine.com/api/ip/abc/193.174.32.100").
-        to_return(:status => 200, :body => fixture('193.174.32.100.xml'), :headers => {})
+        to_return(:status => 200, :body => fixture('germany-193.174.32.100.xml'), :headers => {})
     end
 
     it "requests the correct resource" do
       WorldTimeEngine.api('193.174.32.100')
 
       a_get("/api/ip/abc/193.174.32.100").should have_been_made
+    end
+  end
+
+  context "region with DST" do
+    before do
+      WorldTimeEngine.configure do |config|
+        config.api_key = 'abc'
+      end
+
+      stub_request(:get, "http://worldtimeengine.com/api/ip/abc/212.154.168.243").
+        to_return(:status => 200, :body => fixture('kazakhstan-212.154.168.243.xml'), :headers => {})
+    end
+
+    it "returns needed values" do
+      response = WorldTimeEngine.api('212.154.168.243')
+
+      response.location.region.should == 'Kazakhstan'
+      response.location.latitude.should == 51.1811
+      response.location.longitude.should == 71.4278
+
+      response.time.zone.has_dst.should == false
+      response.time.zone.current.abbreviation.should == "ALMT"
+    end
+
+    it "skips next attribute" do
+      response = WorldTimeEngine.api('212.154.168.243')
+
+      response.time.zone.next.should be_nil
+    end
+  end
+
+  context "region without DST" do
+    before do
+      WorldTimeEngine.configure do |config|
+        config.api_key = 'abc'
+      end
+
+      stub_request(:get, "http://worldtimeengine.com/api/ip/abc/193.174.32.100").
+        to_return(:status => 200, :body => fixture('germany-193.174.32.100.xml'), :headers => {})
     end
 
     it "returns needed values" do
