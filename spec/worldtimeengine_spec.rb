@@ -29,7 +29,7 @@ describe WorldTimeEngine do
       response.location.latitude.should == 53.25
       response.location.longitude.should == 10.4
 
-      response.time.utc.should == Time.parse("2012-08-25 14:10:29")
+      response.time.utc.should == Time.parse("2012-08-25 14:10:29 UTC")
       response.time.local.should == Time.parse("2012-08-25 16:10:29")
 
       response.time.zone.has_dst.should == true

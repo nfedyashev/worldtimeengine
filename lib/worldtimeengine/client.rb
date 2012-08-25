@@ -23,14 +23,13 @@ module WorldTimeEngine
       endpoint = WorldTimeEngine.instance_variable_get(:@endpoint)
       api_key = WorldTimeEngine.instance_variable_get(:@api_key)
 
-      timezone_hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}").to_hash['timezone']
+      timezone_hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml).to_hash['timezone']
       timezone_hash.delete('xmlns:xsi')
       timezone_hash.delete('xsi:noNamespaceSchemaLocation')
 
       Hashie::Mash.new(timezone_hash).tap do |mash|
-
-        mash.time.utc = to_time mash.time.utc
-        mash.time.local = to_time mash.time.local
+        mash.time.utc = Time.parse "#{mash.time.utc} UTC"
+        mash.time.local = Time.parse "#{mash.time.local} #{mash.time.zone.current.abbreviation} #{mash.time.zone.current.utcoffset}"
 
         mash.location.latitude = mash.location.latitude.to_f
         mash.location.longitude = mash.location.longitude.to_f
@@ -39,11 +38,11 @@ module WorldTimeEngine
 
         mash.time.zone.current.is_dst = to_boolean mash.time.zone.current.isdst
         mash.time.zone.current.utc_offset = mash.time.zone.current.utcoffset
-        mash.time.zone.current.effective_until = to_time mash.time.zone.current.effectiveUntil
+        mash.time.zone.current.effective_until = Time.parse "#{mash.time.zone.current.effectiveUntil} #{mash.time.zone.current.abbreviation} #{mash.time.zone.current.utcoffset}"
 
         mash.time.zone.next.is_dst = to_boolean mash.time.zone.next.isdst
         mash.time.zone.next.utc_offset = mash.time.zone.next.utcoffset
-        mash.time.zone.next.effective_until = to_time mash.time.zone.next.effectiveUntil
+        mash.time.zone.next.effective_until = Time.parse "#{mash.time.zone.next.effectiveUntil} #{mash.time.zone.next.abbreviation} #{mash.time.zone.next.utcoffset}"
       end
     end
 
