@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<error xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://worldtimeengine.com/error.xsd" type="exception">
+    <code>10001</code>
+    <message>Invalid or Expired API Key used</message>
+</error>

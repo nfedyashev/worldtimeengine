@@ -22,6 +22,23 @@ describe WorldTimeEngine do
     end
   end
 
+  describe 'request with invalid api_key' do
+    before do
+      WorldTimeEngine.configure do |config|
+        config.api_key = 'abc'
+      end
+
+      stub_request(:get, "http://worldtimeengine.com/api/ip/abc/212.154.168.243").
+        to_return(:status => 200, :body => fixture('wrong_key.xml'), :headers => {})
+    end
+
+    it "returns raises an exception" do
+      lambda {
+        WorldTimeEngine.api('212.154.168.243')
+      }.should raise_error(RuntimeError, 'Invalid or Expired API Key used; Error code: 10001')
+    end
+  end
+
   context "region with DST" do
     before do
       WorldTimeEngine.configure do |config|

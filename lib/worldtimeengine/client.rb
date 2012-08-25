@@ -30,7 +30,14 @@ module WorldTimeEngine
 
       raise ArgumentError.new(":api_key wasn't set in configuration block") if api_key.nil?
 
-      timezone_hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml).to_hash['timezone']
+      hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml).to_hash
+
+      if hash.keys.include?('error')
+        raise "Invalid or Expired API Key used; Error code: 10001"
+      end
+
+      timezone_hash = hash['timezone']
+
       timezone_hash.delete('xmlns:xsi')
       timezone_hash.delete('xsi:noNamespaceSchemaLocation')
 
