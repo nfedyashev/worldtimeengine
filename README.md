@@ -1,4 +1,4 @@
-![travis-ci](http://travis-ci.org/nfedyashev/worldtimeengine.png)
+[![Build Status](https://secure.travis-ci.org/nfedyashev/worldtimeengine.png?branch=master)](http://travis-ci.org/nfedyashev/worldtimeengine)
 
 #  The WorldTimeEngine.com Ruby gem
 
