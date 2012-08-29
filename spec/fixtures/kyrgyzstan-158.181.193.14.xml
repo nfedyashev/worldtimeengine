@@ -1,0 +1,20 @@
+<timezone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://worldtimeengine.com/timezone.xsd">
+    <version>1.1</version>
+    <location>
+        <region></region>
+        <latitude></latitude>
+        <longitude></longitude>
+    </location>
+    <time>
+        <utc>1970-01-01 00:00:00</utc>
+        <local>1970-01-01 00:00:00</local>
+        <zone>
+            <hasDST>false</hasDST>
+            <current>
+                <abbreviation></abbreviation>
+                <description></description>
+                <utcoffset></utcoffset>
+            </current>
+        </zone>
+    </time>
+</timezone>

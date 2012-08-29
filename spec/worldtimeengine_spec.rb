@@ -39,6 +39,21 @@ describe WorldTimeEngine do
     end
   end
 
+  context 'unknown IP address' do
+    before do
+      WorldTimeEngine.configure do |config|
+        config.api_key = 'abc'
+      end
+
+      stub_request(:get, "http://worldtimeengine.com/api/ip/abc/158.181.193.14").
+        to_return(:status => 200, :body => fixture('kyrgyzstan-158.181.193.14.xml'), :headers => {})
+    end
+
+    it "does not fail" do
+      WorldTimeEngine.api('158.181.193.14')
+    end
+  end
+
   context "region with DST" do
     before do
       WorldTimeEngine.configure do |config|

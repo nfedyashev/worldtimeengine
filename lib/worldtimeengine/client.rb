@@ -52,9 +52,13 @@ module WorldTimeEngine
 
         mash.time.zone.current.is_dst = to_boolean mash.time.zone.current.isdst
         mash.time.zone.current.utc_offset = mash.time.zone.current.utcoffset
-        mash.time.zone.current.effective_until = Time.parse "#{mash.time.zone.current.effectiveUntil} #{mash.time.zone.current.abbreviation} #{mash.time.zone.current.utcoffset}"
 
-        if mash.time.zone.has_dst 
+        # could be missing for not recognized IPs
+        unless mash.time.zone.current.effectiveUntil.nil?
+          mash.time.zone.current.effective_until = Time.parse "#{mash.time.zone.current.effectiveUntil} #{mash.time.zone.current.abbreviation} #{mash.time.zone.current.utcoffset}"
+        end
+
+        if mash.time.zone.has_dst
           mash.time.zone.next.is_dst = to_boolean mash.time.zone.next.isdst
           mash.time.zone.next.utc_offset = mash.time.zone.next.utcoffset
           mash.time.zone.next.effective_until = Time.parse "#{mash.time.zone.next.effectiveUntil} #{mash.time.zone.next.abbreviation} #{mash.time.zone.next.utcoffset}"
