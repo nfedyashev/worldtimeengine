@@ -106,13 +106,13 @@ describe WorldTimeEngine do
       response.time.zone.has_dst.should == true
       response.time.zone.current.abbreviation.should == "CEST"
       response.time.zone.current.description.should == "Central European Summer Time"
-      response.time.zone.current.utc_offset.should == '+2:00'
+      response.time.zone.current.utc_offset.should == '+02:00'
       response.time.zone.current.is_dst.should == true
       response.time.zone.current.effective_until.should == Time.parse("2012-10-28 03:00:00")
 
       response.time.zone.next.abbreviation.should == 'CET'
       response.time.zone.next.description.should == "Central European Time"
-      response.time.zone.next.utc_offset.should == "+1:00"
+      response.time.zone.next.utc_offset.should == "+01:00"
       response.time.zone.next.is_dst.should == false
       response.time.zone.next.effective_until.should == Time.parse("2013-03-31 02:00:00")
     end

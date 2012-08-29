@@ -51,7 +51,8 @@ module WorldTimeEngine
         mash.time.zone.has_dst = to_boolean mash.time.zone.hasDST
 
         mash.time.zone.current.is_dst = to_boolean mash.time.zone.current.isdst
-        mash.time.zone.current.utc_offset = mash.time.zone.current.utcoffset
+
+        mash.time.zone.current.utc_offset = to_formatted_offset mash.time.zone.current.utcoffset
 
         # could be missing for not recognized IPs
         unless mash.time.zone.current.effectiveUntil.nil?
@@ -60,13 +61,23 @@ module WorldTimeEngine
 
         if mash.time.zone.has_dst
           mash.time.zone.next.is_dst = to_boolean mash.time.zone.next.isdst
-          mash.time.zone.next.utc_offset = mash.time.zone.next.utcoffset
+          mash.time.zone.next.utc_offset = to_formatted_offset mash.time.zone.next.utcoffset
           mash.time.zone.next.effective_until = Time.parse "#{mash.time.zone.next.effectiveUntil} #{mash.time.zone.next.abbreviation} #{mash.time.zone.next.utcoffset}"
         end
       end
     end
 
     private
+
+      def to_formatted_offset(string)
+        return if string.nil?
+
+        if string.split(':').first.length == '+1'.length
+          string.gsub!('-', '-0')
+          string.gsub!('+', '+0')
+        end
+        string
+      end
 
       def to_time(string)
         Time.parse string

@@ -52,7 +52,7 @@ gem 'worldtimeengine'
     response.time.zone.current.description
     => "Central European Summer Time"
     response.time.zone.current.utc_offset
-    => '+2:00'
+    => '+02:00'
     response.time.zone.current.is_dst
     => true
     response.time.zone.current.effective_until
@@ -63,7 +63,7 @@ gem 'worldtimeengine'
     response.time.zone.next.description
     => "Central European Time"
     response.time.zone.next.utc_offset
-    => "+1:00"
+    => "+01:00"
     response.time.zone.next.is_dst
     => false
     response.time.zone.next.effective_until
