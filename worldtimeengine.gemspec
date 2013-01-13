@@ -19,6 +19,5 @@ Gem::Specification.new do |gem|
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   gem.summary = %q{WorldTimeEngine API wrapper}
   gem.test_files = Dir.glob("spec/**/*")
-  gem.version = '0.0.4'
+  gem.version = '0.0.5'
 end
-
