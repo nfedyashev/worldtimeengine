@@ -24,6 +24,7 @@ gem 'worldtimeengine'
 
     WorldTimeEngine.configure do |config|
       config.api_key = YOUR_API_KEY
+      config.timeout = 2 # in seconds
     end
 
 

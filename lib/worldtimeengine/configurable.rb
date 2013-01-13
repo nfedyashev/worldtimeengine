@@ -1,6 +1,7 @@
 module WorldTimeEngine
   module Configurable
     attr_writer :api_key
+    attr_writer :timeout
     attr_accessor :endpoint
 
     class << self
@@ -8,6 +9,7 @@ module WorldTimeEngine
       def keys
         @keys ||= [
           :api_key,
+          :timeout,
           :endpoint
         ]
       end
@@ -28,6 +30,7 @@ module WorldTimeEngine
     def reset!
       @api_key = nil
       @endpoint = 'http://worldtimeengine.com'
+      @timeout = 10 # seconds
       self
     end
     alias setup reset!
@@ -36,7 +39,7 @@ module WorldTimeEngine
 
     # @return [Hash]
     def credentials
-      { :api_key => @api_key }
+      { :api_key => @api_key, :timeout => @timeout }
     end
 
     # @return [Hash]

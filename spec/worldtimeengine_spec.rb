@@ -35,7 +35,7 @@ describe WorldTimeEngine do
     it "returns raises an exception" do
       lambda {
         WorldTimeEngine.api('212.154.168.243')
-      }.should raise_error(RuntimeError, 'Invalid or Expired API Key used; Error code: 10001')
+      }.should raise_error(RuntimeError, '[WorldTimeEngine] Invalid or Expired API Key used; Error code: 10001')
     end
   end
 
@@ -125,11 +125,25 @@ describe WorldTimeEngine do
   end
 
   describe ".configure" do
-    it "sets the api_key" do
-      WorldTimeEngine.configure do |config|
-        config.api_key = 'abc'
+    describe "api_key" do
+      it "sets an api_key" do
+        WorldTimeEngine.configure do |config|
+          config.api_key = 'abc'
+        end
+        WorldTimeEngine.instance_variable_get(:@api_key).should eq 'abc'
       end
-      WorldTimeEngine.instance_variable_get(:@api_key).should eq 'abc'
+    end
+
+    describe "timeout" do
+      it "detaults to 10 secs default timeout" do
+        WorldTimeEngine.instance_variable_get(:@timeout).should eq 10
+      end
+      it "sets a timeout" do
+        WorldTimeEngine.configure do |config|
+          config.timeout = 20
+        end
+        WorldTimeEngine.instance_variable_get(:@timeout).should eq 20
+      end
     end
   end
 

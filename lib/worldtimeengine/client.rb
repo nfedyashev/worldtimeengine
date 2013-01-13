@@ -27,13 +27,14 @@ module WorldTimeEngine
     def api(ip)
       endpoint = WorldTimeEngine.instance_variable_get(:@endpoint)
       api_key = WorldTimeEngine.instance_variable_get(:@api_key)
+      timeout = WorldTimeEngine.instance_variable_get(:@timeout)
 
       raise ArgumentError.new(":api_key wasn't set in configuration block") if api_key.nil?
 
-      hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml).to_hash
+      hash = HTTParty.get("#{endpoint}/api/ip/#{api_key}/#{ip}", :format => :xml, :timeout => timeout.to_i).to_hash
 
       if hash.keys.include?('error')
-        raise "Invalid or Expired API Key used; Error code: 10001"
+        raise "[WorldTimeEngine] Invalid or Expired API Key used; Error code: 10001"
       end
 
       timezone_hash = hash['timezone']
